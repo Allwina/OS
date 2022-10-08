@@ -1,0 +1,45 @@
+#include<stdio.h>
+int main()
+{
+ int n,i;
+ float twt=0.0,awt=0.0,ttat=0.0,attat=0.0;
+ printf("enter the number of process");
+ scanf("%d",&n);
+ int bt[n],a[n],b[n];
+ for(i=0;i<n;i++)
+ {
+printf(" enter the burst time of process %d ",i);
+scanf("%d",&bt[i]);
+}
+//Waiting time
+a[0]=0;
+ for(i=1;i<n;i++)
+ {
+a[i]=a[i-1]+bt[i-1];
+}
+for(i=0;i<n;i++)
+{
+b[i]=a[i]+bt[i];
+}
+for(i=0;i<n;i++)
+ {
+twt=twt+a[i];
+ttat=ttat+b[i];
+}
+awt=twt/n;
+attat=ttat/n;
+printf(" \n Average waiting time %f \n",awt);
+printf(" \n Average Turn around time %f \n",attat);
+printf("Process\tBurstTime \t Waiting Time\tTat\n");
+for(i=0;i<n;i++)
+ {
+printf("P%d\t%d\t\t%d\t\t%d\n",i,bt[i],a[i],b[i]);
+}
+//Gantt Chart
+printf("\n 0");
+for(i=0;i<n;i++)
+ {
+printf("\tP%d\t%d",i,b[i]);
+}
+}
+
