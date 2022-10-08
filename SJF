@@ -1,0 +1,63 @@
+#include<stdio.h>
+int main()
+{
+ int n,i,pos,j,temp;
+ float twt=0.0,awt=0.0,ttat=0.0,attat=0.0;
+ printf("enter the number of process");
+ scanf("%d",&n);
+ int bt[n],w[n],t[n],p[n];
+ for(i=0;i<n;i++)
+ {
+printf(" enter the burst time of process %d ",(i+1));
+scanf("%d",&bt[i]);
+p[i]=i+1;
+}
+//Sorting
+for(i=0;i<n;i++)
+{
+    pos=i;
+    for(j=i+1;j<n;j++)
+    {
+        if(bt[j]<bt[pos])
+        pos=j;
+    }
+    temp=bt[i];
+    bt[i]=bt[pos];
+    bt[pos]=temp;
+    temp=p[i];
+    p[i]=p[pos];
+    p[pos]=temp;
+}
+//Waiting time
+w[0]=0;
+ for(i=1;i<n;i++)
+ {
+w[i]=w[i-1]+bt[i-1];
+
+}
+//tat
+for(i=0;i<n;i++)
+{
+t[i]=w[i]+bt[i];
+}
+for(i=0;i<n;i++)
+ {
+twt=twt+w[i];
+ttat=ttat+t[i];
+}
+awt=twt/n;
+attat=ttat/n;
+printf(" \n Average waiting time %f \n",awt);
+printf(" \n Average Turn around time %f \n",attat);
+printf("Process\tBurstTime \t Waiting Time\tTat\n");
+for(i=0;i<n;i++)
+ {
+printf("P%d\t%d\t\t%d\t\t%d\n",p[i],bt[i],w[i],t[i]);
+}
+//Gantt Chart
+printf("\n 0");
+for(i=0;i<n;i++)
+ {
+printf("\tP%d\t%d",p[i],t[i]);
+}
+}
